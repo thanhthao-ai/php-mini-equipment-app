@@ -35,7 +35,22 @@ $availableCount = count($availableItems);
         <p><strong>Location:</strong> <?php echo $item['location']; ?></p>
         <p><strong>Year:</strong> <?php echo $item['year']; ?></p>
         <p><strong>Quantity:</strong> <?php echo $item['quantity']; ?></p>
-        <p><strong>Status:</strong> <?php echo getEquipmentStatus($item['quantity']); ?></p>
+        <?php
+        $status = getEquipmentStatus($item['quantity']);
+
+        $color = match($status) {
+            'Out of stock' => 'red',
+            'Low stock' => 'orange',
+            default => 'green'
+        };
+        ?>
+
+        <p>
+            <strong>Status:</strong> 
+            <span style="color: <?php echo $color; ?>;">
+                <?php echo $status; ?>
+            </span>
+        </p>
     </div>
 <?php endforeach; ?>
 
